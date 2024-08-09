@@ -1,0 +1,126 @@
+<!doctype html>
+
+<html lang="en">
+
+<head th:replace="snippets.html :: name_head"></head>
+
+<body>
+
+	<header th:replace="snippets.html :: name_app_navbar"></header>
+	<main>
+		<div class="container">
+			<!-- Blank Row -->
+			<div class="row">
+				&nbsp;
+			</div>
+			<!-- Blank Row -->
+			<div class="row">
+				&nbsp;
+			</div>
+
+			<h3>Sales Report</h3>
+
+			<!-- Top row -->
+			<div class="row">
+				<div class="col-8 align-items-right">
+					<button type="button" class="btn btn-primary" id="filter-data">Filter</button>
+					&nbsp;
+					&nbsp;
+					<button type="button" class="btn btn-secondary" id = "reset-data">Clear Filters</button>
+					&nbsp;
+					&nbsp;
+					<button type="button" class="btn btn-primary" id="download-data">Download</button>
+				</div>
+			</div>
+			<!-- Blank Row -->
+			<div class="row">
+				&nbsp;
+			</div>
+			<div class="row">
+				<div class="col-6">
+					Start Date:
+					<span id="start-date"></span>
+				</div>
+				<div class="col-6">
+					End Date:
+					<span id="end-date"></span>
+				</div>
+			</div>
+			<!-- Blank Row -->
+			<div class="row">
+				&nbsp;
+			</div>
+			<div class="card d-flex w-100">
+				<div th:replace="snippets.html :: card_header"></div>
+				<div class="card-body">
+					<table class="table table-striped" id="sales-report-table-all">
+						<thead>
+							<tr>
+								<th scope="col">SNo.</th>
+								<th scope="col">Brand</th>
+								<th scope="col">Category</th>
+								<th scope="col">Quantity</th>
+								<th scope="col">Revenue</th>
+							</tr>
+						</thead>
+						<tbody id="sales-report-table-all-body">
+						</tbody>
+					</table>
+				</div>
+				<div th:replace="snippets.html :: card_footer">
+				</div>
+			</div>
+
+			<!-- Filter modal -->
+			<div class="modal" tabindex="-1" role="dialog" id="filter-modal">
+				<div class="modal-dialog mw-100 w-50" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Filter reports by </h5>
+							<button type="button" class="close" aria-label="Close" id="cancel2">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form class="row g-4 needs-validation" id="sales-report-form">
+								<div class="col-md-6">
+									<label for="inputStartDate" class="form-label">Start Date</label>
+									<input type="datetime-local" class="form-control" name="startDate"
+										id="inputStartDate">
+								</div>
+
+								<div class="col-md-6">
+									<label for="inputEndDate" class="form-label">End Date</label>
+									<input type="datetime-local" class="form-control" name="endDate" id="inputEndDate">
+								</div>
+								<div class="col-md-6">
+									<label for="inputBrandName" class="form-label">Brand</label>
+									<input type="text" class="form-control" name="brand" id="inputBrandName"
+										placeholder="Enter brand">
+								</div>
+								<div class="col-md-6">
+									<label for="inputCategory" class="form-label">Category</label>
+									<input type="text" class="form-control" name="category" id="inputCategory"
+										placeholder="Enter category">
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" id="cancel1">Cancel</button>
+							&nbsp;
+							&nbsp;
+							<button type="button" class="btn btn-primary" id="process-data">Apply</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div> <!-- Container end-->
+	</main>
+
+	<footer th:replace="snippets.html :: name_footer"></footer>
+	<script th:src="@{/static/salesreport.js}"></script>
+
+</body>
+
+</html>

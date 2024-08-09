@@ -1,0 +1,35 @@
+<!doctype html>
+
+<head th:replace="snippets.html :: name_head"></head>
+
+<body>
+<header th:replace="snippets.html :: name_site_navbar_login_signup"></header>
+<main>
+	<div class="container">
+
+	</div>
+</main>
+
+<div class="container">
+ <!-- Top row with form-->
+ <div class="row">
+	 <div class="col-12">
+		You have been logged out successfully.
+		Login again
+	 </div>	
+</div> 
+
+</div> <!-- Container-->
+
+<footer th:replace="snippets.html :: name_footer"></footer>
+<script>
+	$(document).ready(function(){
+		$('#loginButton').attr("style", "display:block;");
+	})
+	$(document).ready(function(){
+		$('#loginButton').attr("style", "display:block;");
+	})
+</script>
+</body>
+
+</html>

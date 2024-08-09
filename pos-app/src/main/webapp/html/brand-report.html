@@ -1,0 +1,100 @@
+<!doctype html>
+
+<html lang="en">
+
+<head th:replace="snippets.html :: name_head"></head>
+
+<body>
+	<header th:replace="snippets.html :: name_app_navbar"></header>
+	<main>
+		<div class="container">
+			<!-- Blank Row -->
+			<div class="row">
+				&nbsp;
+			</div>
+
+			<!-- Blank Row -->
+			<div class="row">
+				&nbsp;
+			</div>
+			
+			<h3>Brand Report</h3>
+
+			<!-- Top row -->
+			<div class="row">
+				<div class="col-8 align-items-right">
+					<button type="button" class="btn btn-primary" id="filter-data">Filter</button>
+					&nbsp;
+					&nbsp;
+					<button type="button" class="btn btn-secondary" id="reset-data">Clear Filters</button>
+					&nbsp;
+					&nbsp;
+					<button type="button" class="btn btn-primary" id="download-data">Download</button>
+				</div>
+			</div>
+			<!-- Blank Row -->
+			<div class="row">
+				&nbsp;
+			</div>
+
+			<div class="card d-flex w-100">
+				<div th:replace="snippets.html :: card_header"></div>
+				<div class="card-body">
+					<table class="table table-striped" id="brand-table">
+						<thead>
+							<tr>
+								<th scope="col">SNo.</th>
+								<th scope="col">Brand</th>
+								<th scope="col">Category</th>
+							</tr>
+						</thead>
+						<tbody id="brand-report-table-body">
+						</tbody>
+					</table>
+				</div>
+				<div th:replace="snippets.html :: card_footer">
+				</div>
+			</div>
+
+			<!-- Filter modal -->
+			<div class="modal" tabindex="-1" role="dialog" id="filter-modal">
+				<div class="modal-dialog mw-100 w-25" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Filter reports by</h5>
+							<button type="button" class="close" aria-label="Close" id="cancel2">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form class="row g-4 needs-validation" id="brand-report-form">
+								<div class="col-md-12">
+									<label for="inputBrandName" class="form-label">Brand name</label>
+									<input type="text" class="form-control" name="brand" id="inputBrandName"
+										placeholder="Enter brand">
+								</div>
+								<div class="col-md-12">
+									<label for="inputCategory" class="form-label">Brand Category</label>
+									<input type="text" class="form-control" name="category" id="inputCategory"
+										placeholder="Enter category">
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" id="cancel1">Cancel</button>
+							&nbsp;
+							&nbsp;
+							<button type="button" class="btn btn-primary" id="process-data">Apply</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div> <!-- Container end-->
+	</main>
+	<footer th:replace="snippets.html :: name_footer"></footer>
+	<script th:src="@{/static/brandreport.js}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,115 @@
+<!doctype html>
+
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="snippets.html :: name_head"></head>
+
+<body>
+
+	<header th:replace="snippets.html :: name_app_navbar"></header>
+	<main>
+		<div class="container">
+			<!-- Blank Row -->
+			<div class="row">
+				&nbsp;
+			</div>
+			<!-- Blank Row -->
+			<div class="row">
+				&nbsp;
+			</div>
+
+			<h3>Daily Sales Report</h3>
+
+			<!-- Top row -->
+			<div class="row">
+				<div class="col-8 align-items-right">
+					<button type="button" class="btn btn-primary" id="filter-data">Filter</button>
+					&nbsp;
+					&nbsp;
+					<button type="button" class="btn btn-secondary" id="reset-data">Clear Filters</button>
+					&nbsp;
+					&nbsp;
+					<button type="button" class="btn btn-primary" id="download-data">Download</button>
+				</div>
+			</div>
+			<!-- Blank Row -->
+			<div class="row">
+				&nbsp;
+			</div>
+			<div class="row">
+				<div class="col-6">
+					Start Date:
+						<span id="start-date"></span>
+				</div>
+				<div class="col-6">
+					End Date:
+						<span id="end-date"></span>
+				</div>
+			</div>
+			<!-- Blank Row -->
+			<div class="row">
+				&nbsp;
+			</div>
+			<div class="card d-flex w-100">
+				<div th:replace="snippets.html :: card_header"></div>
+				<div class="card-body">
+					<table class="table table-striped" id="scheduler-report-table-all">
+						<thead>
+							<tr>
+								<th scope="col">SNo.</th>
+								<th scope="col">Date</th>
+								<th scope="col">Invoiced Orders Count</th>
+								<th scope="col">Invoiced Items Count</th>
+								<th scope="col">Total Revenue</th>
+							</tr>
+						</thead>
+						<tbody id="scheduler-report-table-all-body">
+						</tbody>
+					</table>
+				</div>
+				<div th:replace="snippets.html :: card_footer">
+				</div>
+			</div>
+			
+			<!-- Filter modal -->
+			<div class="modal" tabindex="-1" role="dialog" id="filter-modal">
+				<div class="modal-dialog mw-100 w-50" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Filter reports by </h5>
+							<button type="button" class="close" aria-label="Close" id="cancel2">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form class="row g-2 needs-validation" id="daily-sales-report-form">
+								<div class="col-md-6">
+									<label for="inputStartDate" class="form-label">Start Date</label>
+									<input type="datetime-local" class="form-control" name="startDate"
+										id="inputStartDate">
+								</div>
+
+								<div class="col-md-6">
+									<label for="inputEndDate" class="form-label">End Date</label>
+									<input type="datetime-local" class="form-control" name="endDate" id="inputEndDate">
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" id="cancel1">Cancel</button>
+							&nbsp;
+							&nbsp;
+							<button type="button" class="btn btn-primary" id="process-data">Apply</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</div> <!-- Container end-->
+	</main>
+	<footer th:replace="snippets.html :: name_footer"></footer>
+	<script th:src="@{/static/dailysalesreport.js}"></script>
+</body>
+
+</html>

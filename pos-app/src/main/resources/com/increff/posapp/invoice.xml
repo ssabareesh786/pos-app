@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<invoice>
+    <date>16/11/2023</date>
+    <orderId>51</orderId>
+    <item>
+        <sno>1</sno>
+        <productName>product1</productName>
+        <quantity>2</quantity>
+        <mrp>123.45</mrp>
+        <sellingPrice>120.68</sellingPrice>
+        <subTotal>241.36</subTotal>
+    </item>
+    <item>
+        <sno>2</sno>
+        <productName>product2</productName>
+        <quantity>2</quantity>
+        <mrp>12.45</mrp>
+        <sellingPrice>10.78</sellingPrice>
+        <subTotal>21.56</subTotal>
+    </item>
+    <total>262.92</total>
+</invoice>

@@ -1,0 +1,140 @@
+<!doctype html>
+
+<html lang="en">
+
+<head th:replace="snippets.html :: name_head"></head>
+
+<body>
+
+	<header th:replace="snippets.html :: name_app_navbar"></header>
+	<main>
+		<div class="container">
+			<!-- Blank Row -->
+			<div class="row">
+				&nbsp;
+			</div>
+
+			<!-- Blank Row -->
+			<div class="row">
+				&nbsp;
+			</div>
+			<h3>Users</h3>
+			<div class="row">
+				<div class="col-8 align-items-right">
+					<span class="d-inline-block" tabindex="0" data-toggle="tooltip">
+						<button type="button" class="btn btn-primary only-supervisor" id="add-data">+&nbsp;Add</button>
+					</span>
+				</div>
+			</div>
+			<!-- Blank Row -->
+			<div class="row">
+				&nbsp;
+			</div>
+
+			<div class="card d-flex w-100">
+				<div th:replace="snippets.html :: card_header"></div>
+				<div class="card-body">
+					<table class="table table-striped" id="user-table">
+						<thead>
+							<tr>
+								<th scope="col">SNo.</th>
+								<th scope="col">Email Id</th>
+								<th scope="col">Role</th>
+								<th scope="col">Actions</th>
+							</tr>
+						</thead>
+						<tbody id="user-table-body">
+						</tbody>
+					</table>
+				</div>
+				<div th:replace="snippets.html :: card_footer">
+				</div>
+			</div>
+
+			<!--User Add Modal-->
+			<div class="modal fade" tabindex="-1" role="dialog" id="add-user-modal">
+				<div class="modal-dialog mw-100 w-25" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Add User</h5>
+							<button type="button" class="close" aria-label="Close" id="cancel2">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form class="row g-4 needs-validation" id="user-form" novalidate>
+								<div class="col-md-12">
+									<label for="inputEmail" class="form-label required">Email</label>
+									<input type="email" class="form-control" name="email" id="inputEmail"
+										placeholder="Enter email" onfocus="validateEmailUtil()">
+									<div class="invalid-feedback" id="eivf">
+									</div>
+								</div>
+								<div class="col-md-12">
+									<label for="inputPassword" class="form-label required">Password</label>
+									<input type="password" class="form-control" name="password" id="inputPassword"
+										placeholder="enter password" onfocus="validatePasswordUtil()">
+									<div class="invalid-feedback" id="pivf">
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" id="cancel1">Cancel</button>
+							<button type="button" class="btn btn-primary" id="add-user">Add</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- User Edit Modal -->
+			<div class="modal fade" tabindex="-1" role="dialog" id="edit-user-modal">
+				<div class="modal-dialog mw-100 w-25" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Edit User</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="cancel4">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form class="row g-4 needs-validation" id="edit-user-form" novalidate>
+								<div class="col-md-12">
+									<label for="inputEmailEdit" class="form-label required">Email</label>
+									<input type="email" class="form-control" name="email" id="inputEmailEdit"
+										placeholder="Enter email">
+									<div class="invalid-feedback" id="eivf">
+									</div>
+								</div>
+								<div class="col-md-12">
+									<label for="inputPasswordEdit" class="form-label">New Password</label>
+									<input type="password" class="form-control" name="password" id="inputPasswordEdit"
+										placeholder="Enter new password">
+								</div>
+								<div class="col-md-12">
+									<label for="inputRole" class="form-label required">Role</label>
+									<select class="form-control" name="role">
+										<option value="supervisor" id="supervisor">supervisor</option>
+										<option value="operator" id="operator">operator</option>
+									</select>
+								</div>
+								<input type="hidden" name="id">
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" id="cancel3">Cancel</button>
+							<button type="button" class="btn btn-primary" id="update-user" disabled>Update</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> <!-- Container end-->
+	</main>
+	<footer th:replace="snippets.html :: name_footer"></footer>
+
+	<script th:src="@{/static/user.js}" />
+	</script>
+
+</body>
+
+</html>

@@ -1,0 +1,220 @@
+<!doctype html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="snippets.html :: name_head">
+</head>
+
+
+<body>
+
+	<header th:replace="snippets.html :: name_app_navbar"></header>
+	<main>
+		<div class="container">
+			<!-- Blank Row -->
+			<div class="row">
+				&nbsp;
+			</div>
+			<!-- Blank Row -->
+			<div class="row">
+				&nbsp;
+			</div>
+			<div class="row">
+				<div class="col-8 align-items-right">
+					<a role="button" class="btn btn-secondary" onclick="history.back()">&#60;&#60;&nbsp;Back</a>
+				</div>	
+			</div> 
+			<!-- Blank Row -->
+			<div class="row">
+				&nbsp;
+			</div>
+			<div class="row">
+				<div class="col-8 align-items-right">
+					<a role="button" class="btn btn-secondary" id="add-items">Add items</a>
+				</div>	
+			</div> 
+			<!-- Blank Row -->
+			<div class="row">
+				&nbsp;
+			</div>
+			<h3>Ordered Items</h3>
+
+			<!-- Blank Row -->
+			<div class="row">
+				&nbsp;
+			</div>
+
+			<div class="card d-flex w-100">
+				<div th:insert="snippets.html :: card_header"></div>
+				<div class="card-body">
+					<table class="table table-striped" id="order-items-table">
+						<thead>
+							<tr id="order-items-table-head">
+								<th scope="col">SNo.</th>
+								<th scope="col">Barcode</th>
+								<th scope="col">Product Name</th>
+								<th scope="col">Quantity</th>
+								<th scope="col">Selling Price</th>
+								<th scope="col">MRP</th>
+								<th scope="col">Sub Total</th>
+							</tr>
+						</thead>
+						<tbody id="order-items-table-body">
+						</tbody>
+					</table>
+				</div>
+				<div th:replace="snippets.html :: card_footer">
+				</div>
+			</div>
+
+			<!-- Order Item Edit Modal -->
+			<div class="modal fade" tabindex="-1" role="dialog" id="edit-order-item-modal">
+				<div class="modal-dialog mw-100 w-25" role="document">
+					<div class="modal-content container">
+						<div class="modal-header">
+							<h5 class="modal-title">Edit Order Item</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="cancel1">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form class="row g-4 needs-validation" id="edit-order-item-form">
+								<div class="col-md-12">
+									<label for="inputBarcode" class="form-label">Barcode</label>
+										<input type="text" class="form-control" id="inputBarcode" name="barcode"
+											placeholder="Enter barcode">
+								</div>
+								<div class="col-md-12">
+									<label for="inputQuantity" class="form-label">Quantity</label>
+										<input type="number" class="form-control" name="quantity"
+											placeholder="Enter quantity">
+											<div class="valid-feedback" id="eqvf"></div>
+											<div class="invalid-feedback" id="eqif"></div>
+								</div>
+								<div class="col-md-12">
+									<label for="inputSellingPrice" class="form-label">Selling Price</label>
+										<input type="text" class="form-control decimal-number" name="sellingPrice"
+											placeholder="Enter selling price">
+										<div class="valid-feedback" id="espvf"></div>
+										<div class="invalid-feedback" id="espif"></div>
+								</div>
+								<input type="hidden" name="id">
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancel2">Cancel</button>
+							<button type="button" class="btn btn-primary" id="update-order-item">Update</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+				<!--Add Items Modal -->
+			<div class="modal fade" tabindex="-1" role="dialog" id="add-items-modal">
+				<div class="modal-dialog mw-100 w-100" role="document" style="height: auto; overflow: auto;">
+					<div class="modal-content container">
+						<div class="modal-header">
+							<h5 class="modal-title">Add Items</h5>
+							<button type="button" class="close" aria-label="Close" id="cancel4">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form class="row g-3 needs-validation" id="add-items-form" novalidate>
+								<div class="col-md-4">
+									<label for="inputBarcode" class="form-label">Barcode</label>
+									<div class="input-group has-validation">
+										<input type="text" class="form-control" name="barcode"
+											placeholder="Enter barcode" required onfocus="validateBarcodeUtil()">
+										<span class="input-group-append">
+											<button class="btn btn-primary" type="button" id="searchForBarcode"
+												disabled><i class="fa fa-search"></i></button>
+										</span>
+										<div class="valid-feedback" id="bvf1">
+											Looks good!
+										</div>
+										<div class="invalid-feedback" id="bif1">
+											Please enter barcode
+										</div>
+										<div class="invalid-feedback" id="bif2">
+											Barcode is invalid
+										</div>
+										<div class="invalid-feedback" id="bif3">
+											This item is currently unavailable
+										</div>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<label for="inputQuantity" class="form-label">Quantity</label>
+									<input type="number" class="form-control" name="quantity"
+										placeholder="Enter Quantity" required readonly>
+									<div class="valid-feedback" id="qvf1">
+									</div>
+									<div class="invalid-feedback" id="qif1">
+										Please enter quantity
+									</div>
+									<div class="invalid-feedback" id="qif2">
+										Enter a quantity within 3
+									</div>
+								</div>
+								<div class="col-md-4">
+									<label for="inputSellingPrice" class="form-label">Selling Price</label>
+									<input type="text" class="form-control decimal-number" name="sellingPrice"
+										placeholder="Enter Selling Price" required readonly>
+									<div class="valid-feedback" id="spvf1">
+										Looks good!
+									</div>
+									<div class="invalid-feedback" id="spif1">
+										Please enter selling price
+									</div>
+									<div class="invalid-feedback" id="spif2">
+										Selling Price must be less than 45.67
+									</div>
+								</div>
+								<div class="col-12">
+									&nbsp;&nbsp;
+								</div>
+								<button type="button" class="btn btn-primary col-md-2" id="add-item"
+									disabled>+&nbsp;Add&nbsp;item</button>
+							</form>
+
+							<div class="row">
+								<div class="col-12">
+									&nbsp;&nbsp;
+								</div>
+							</div>
+
+							<div style="height: 200px; overflow-y: auto;" id="table-div">
+								<table class="table" id="added-items-table">
+									<thead>
+										<tr>
+											<th scope="col">SNo</th>
+											<th scope="col">Barcode</th>
+											<th scope="col">Product Name</th>
+											<th scope="col">Quantity</th>
+											<th scope="col">Selling Price</th>
+											<th scope="col">Total</th>
+											<th scope="col">Actions</th>
+										</tr>
+									</thead>
+									<tbody id="added-items">
+									</tbody>
+								</table>
+							</div>
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" id="add-items-confirm" disabled>Add Items</button>
+							<button type="button" class="btn btn-secondary" id="cancel3">Cancel</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> <!-- Container end-->
+	</main>
+	<footer th:replace="snippets.html :: name_footer"></footer>
+	<script th:src="@{/static/orderitems.js}"></script>
+	<script th:src="@{/static/orderitemsadd.js}"></script>
+</body>
+
+</html>

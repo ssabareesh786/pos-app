@@ -1,0 +1,36 @@
+<!doctype html>
+
+<html lang="en">
+
+<head th:replace="snippets.html :: name_head"></head>
+
+<body>
+  <header th:replace="snippets.html :: name_site_navbar"></header>
+
+  <main class="container">
+    <!-- Blank Row -->
+		<div class="row">
+			&nbsp;
+		</div>
+    <!-- Blank Row -->
+		<div class="row">
+			&nbsp;
+		</div>
+      <div class="row">
+        <div class="col-6">
+
+          <div class="jumbotron">
+            <h1 class="display-4">Hello, world!</h1>
+            <p class="lead">Welcome to Point of Sales application</p>
+            
+            <a class="btn btn-primary btn-lg" th:href="@{/site/login}" role="button">Get Started</a>
+          </div>
+
+        </div>
+      </div>
+  </main>
+  <footer th:replace="snippets.html :: name_footer"></footer>
+
+</body>
+
+</html>

@@ -1,0 +1,180 @@
+<!doctype html>
+
+<html lang="en">
+
+<head th:replace="snippets.html :: name_head"></head>
+
+<body>
+	<header th:replace="snippets.html :: name_app_navbar"></header>
+
+<main>
+	<div class="container">
+
+		<!-- Blank Row -->
+		<div class="row">
+			&nbsp;
+		</div>
+
+		<!-- Blank Row -->
+		<div class="row">
+			&nbsp;
+		</div>
+
+		<h3>Brands</h3>
+		<div class="row">
+			<div class="col-8 align-items-right">
+				<span class="d-inline-block" tabindex="0" data-toggle="tooltip">
+					<button type="button" class="btn btn-primary only-supervisor" id="add-data">+&nbsp;Add</button>
+				</span>
+				&nbsp;
+				&nbsp;
+				<span class="d-inline-block" tabindex="0" data-toggle="tooltip">
+					<button type="button" class="btn btn-primary only-supervisor" id="upload-data">Upload</button>
+				</span>
+			</div>
+		</div>
+
+		<!-- Blank Row -->
+		<div class="row">
+			&nbsp;
+		</div>
+
+		<div class="card d-flex w-100">
+			<div th:replace="snippets.html :: card_header"></div>
+			<div class="card-body">
+			<table class="table table-striped" id="brand-table">
+				<thead>
+					<tr>
+						<th scope="col">SNo.</th>
+						<th scope="col">Brand</th>
+						<th scope="col">Category</th>
+						<th scope="col">Actions</th>
+					</tr>
+				</thead>
+				<tbody id="brand-table-body">
+				</tbody>
+			</table>
+		</div>
+		<div th:replace="snippets.html :: card_footer">
+		</div>
+	</div>
+
+	<!-- Brand Add Modal -->
+	<div class="modal" tabindex="-1" role="dialog" id="add-brand-modal">
+		<div class="modal-dialog mw-100 w-25" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Add Brand</h5>
+					<button type="button" class="close" aria-label="Close" id="cancel2">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form class="row g-4 needs-validation" id="brand-form" novalidate>
+						<div class="col-md-12">
+							<label for="inputBrandName" class="form-label required">Brand</label>
+								<input type="text" class="form-control" name="brand" id="inputBrandName"
+									placeholder="Enter brand" onfocus="validateAddBrandUtil()">
+									<div class="invalid-feedback" id="bivf1">
+										Please enter brand
+									</div>
+						</div>
+						<div class="col-md-12">
+							<label for="inputCategory" class="form-label required">Category</label>
+								<input type="text" class="form-control" name="category" id="inputCategory"
+									placeholder="Enter category" onfocus="validateAddCategoryUtil()">
+								<div class="invalid-feedback" id="civf1">
+									Please enter category
+								</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" id="cancel1">Cancel</button>
+					<button type="button" class="btn btn-primary" id="add-brand" disabled>Add</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+		<!-- Brand Edit Modal -->
+		<div class="modal" tabindex="-1" role="dialog" id="edit-brand-modal">
+			<div class="modal-dialog mw-100 w-25" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Edit Brand</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="cancel4">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form class="row g-4 needs-validation" id="brand-edit-form" novalidate>
+							<div class="col-md-12" id="error-message2" style="color: red;">
+							</div>
+							<div class="col-md-12">
+								<label for="inputBrandName" class="form-label required">Brand</label>
+									<input type="text" class="form-control" name="brand" placeholder="Enter brand">
+									<div class="invalid-feedback" id="ebif1">
+										Please enter brand
+									</div>
+							</div>
+							<div class="col-md-12">
+								<label for="inputCategory" class="form-label required">Category</label>
+									<input type="text" class="form-control" name="category"
+										placeholder="Enter category">
+									<div class="invalid-feedback" id="ecif1">
+										Please enter category
+									</div>
+							</div>
+							<input type="hidden" name="id">
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" id="cancel3">Cancel</button>
+						<button type="button" class="btn btn-primary" id="update-brand" disabled>Update</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- Brand Upload Modal -->
+		<div class="modal" tabindex="-1" role="dialog" id="upload-brand-modal">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+
+					<div class="modal-header">
+						<h5 class="modal-title">Upload Brand details</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="cancel5">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+
+					<div class="modal-body">
+						<div class="brand-file">
+							<input type="file" class="custom-file-input" id="brandFile">
+							<label class="custom-file-label" for="brandFile" id="brandFileName">Choose file</label>
+						</div>
+						<a th:href="@{/sample/brand.tsv}" target="_blank">Download Sample</a>
+						<br>
+						Rows: <span id="rowCount">0</span>,
+						Processed: <span id="processCount">0</span>,
+						Errors: <span id="errorCount">0</span>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancel6">Cancel</button>
+						<button type="button" class="btn btn-primary" id="process-data">Upload</button>
+						<button type="button" class="btn btn-secondary" id="download-errors" disabled>Download Errors</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div> <!-- Container end-->
+</main>
+	<footer th:replace="snippets.html :: name_footer"></footer>
+	<script th:src="@{/static/brand.js}"></script>
+</body>
+
+</html>

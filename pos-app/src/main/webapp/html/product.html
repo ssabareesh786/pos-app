@@ -1,0 +1,263 @@
+<!doctype html>
+
+<html lang="en">
+
+<head th:replace="snippets.html :: name_head"></head>
+
+<body>
+
+	<header th:replace="snippets.html :: name_app_navbar"></header>
+	<main>
+		<div class="container">
+
+			<!-- Blank Row -->
+			<div class="row">
+				&nbsp;
+			</div>
+
+			<!-- Blank Row -->
+			<div class="row">
+				&nbsp;
+			</div>
+
+			<h3>Products</h3>
+			<div class="row">
+				<div class="col-8 align-items-right">
+					<span class="d-inline-block" tabindex="0" data-toggle="tooltip">
+						<button type="button" class="btn btn-primary only-supervisor" id="add-data">+&nbsp;Add</button>
+					</span>
+					&nbsp;
+					&nbsp;
+					<span class="d-inline-block" tabindex="0" data-toggle="tooltip">
+						<button type="button" class="btn btn-primary only-supervisor" id="upload-data">Upload</button>
+					</span>
+				</div>
+			</div>
+
+			<!-- Blank Row -->
+			<div class="row">
+				&nbsp;
+			</div>
+
+			<!-- Table -->
+			<div class="card d-flex w-100">
+				<div th:replace="snippets.html :: card_header"></div>
+				<div class="card-body">
+					<table class="table table-striped" id="product-table">
+						<thead>
+							<tr>
+								<th scope="col">SNo</th>
+								<th scope="col">Barcode</th>
+								<th scope="col">Brand</th>
+								<th scope="col">Category</th>
+								<th scope="col">Product<br>Name</th>
+								<th scope="col">MRP</th>
+								<th scope="col">Actions</th>
+							</tr>
+						</thead>
+						<tbody id="product-table-body">
+						</tbody>
+					</table>
+				</div>
+				<div th:replace="snippets.html :: card_footer">
+				</div>
+			</div>
+
+			<!--Product Add Modal-->
+			<div class="modal" tabindex="-1" role="dialog" id="add-product-modal">
+				<div class="modal-dialog mw-100 w-50" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Add product</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="cancel2">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form class="row g-4 needs-validation" id="product-form" novalidate>
+								<div class="col-md-12">
+									<label for="inputBarcode" class="form-label required">Barcode</label>
+									<div class="input-group has-validation">
+										<input type="text" class="form-control" name="barcode" id="inputBarcode"
+											placeholder="Enter product barcode" onfocus="validateAddBarcodeUtil()">
+										<span class="input-group-append">
+											<button type="button" class="btn btn-success" id="check-barcode"
+												disabled>Check
+												availability</button>
+										</span>
+										<div class="valid-feedback" id="bvf1">
+											Available
+										</div>
+										<div class="invalid-feedback" id="bif1">
+											Please enter barcode
+										</div>
+										<div class="invalid-feedback" id="bif2">
+											Not available
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label class="form-label required" for="inputBrand">Brand</label>
+									<input type="text" class="form-control" name="brand" id="inputBrand"
+										placeholder="Enter Brand" onfocus="validateAddBrandUtil()">
+									<div class="invalid-feedback" id="brif1">
+										Please enter brand
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label class="form-label required" for="inputCategory">Category</label>
+									<input type="text" class="form-control" name="category" id="inputCategory"
+										placeholder="Enter Category" onfocus="validateAddCategoryUtil()">
+									<div class="invalid-feedback" id="cif1">
+										Please enter category
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputProductName" class="form-label required">Product Name</label>
+									<input type="text" class="form-control" name="name" id="inputProductName"
+										placeholder="Enter Product name" onfocus="validateAddNameUtil()">
+									<div class="invalid-feedback" id="pnif1">
+										Please enter product name
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputMrp" class="form-label required">MRP</label>
+									<input type="number" class="form-control decimal-number" name="mrp" id="inputMrp"
+										placeholder="Enter product MRP" onfocus="validateAddMrpUtil()">
+									<div class="invalid-feedback" id="mrpif1">
+										Please enter MRP
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal"
+								id="cancel1">Cancel</button>
+							<button type="button" class="btn btn-primary" id="add-product">Add</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Product Edit Modal -->
+			<div class="modal" tabindex="-1" role="dialog" id="edit-product-modal">
+				<div class="modal-dialog mw-100 w-50" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Edit Product</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="cancel4">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form class="row g-4 needs-validation" id="product-edit-form" novalidate>
+								<div class="col-md-12">
+									<label for="inputBarcode" class="form-label required">Barcode</label>
+									<div class="input-group has-validation">
+										<input type="text" class="form-control" name="barcode" id="inputBarcode"
+											placeholder="Enter product barcode">
+										<span class="input-group-append">
+											<button type="button" class="btn btn-success" id="check-barcode-edit"
+												disabled>Check
+												availability</button>
+										</span>
+										<div class="valid-feedback" id="ebvf1">
+											Available
+										</div>
+										<div class="invalid-feedback" id="ebif1">
+											Please enter barcode
+										</div>
+										<div class="invalid-feedback" id="ebif2">
+											Not available
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label class="form-label required" for="inputBrand">Brand</label>
+									<input type="text" class="form-control" name="brand" id="inputBrand"
+										placeholder="Enter Brand">
+									<div class="invalid-feedback" id="ebrif1">
+										Please enter brand
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label class="form-label required" for="inputCategory">Category</label>
+									<input type="text" class="form-control" name="category" id="inputCategory"
+										placeholder="Enter Category">
+									<div class="invalid-feedback" id="ecif1">
+										Please enter category
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputProductName" class="form-label required">Product Name</label>
+									<input type="text" class="form-control" name="name" id="inputProductName"
+										placeholder="Enter Product name">
+									<div class="invalid-feedback" id="enif1">
+										Please enter product name
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label for="inputMrp" class="form-label required">MRP</label>
+									<input type="text" class="form-control decimal-number" name="mrp" id="inputMrp"
+										placeholder="Enter product MRP">
+									<div class="invalid-feedback" id="emrpif1">
+										Please enter MRP
+									</div>
+								</div>
+								<input type="hidden" name="id">
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal"
+								id="cancel3">Cancel</button>
+							<button type="button" class="btn btn-primary" id="update-product">Update</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Product Upload Modal -->
+			<div class="modal" tabindex="-1" role="dialog" id="upload-product-modal">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+
+						<div class="modal-header">
+							<h5 class="modal-title">Upload product details</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="cancel5">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+
+						<div class="modal-body">
+							<div class="product-file">
+								<input type="file" class="custom-file-input" id="productFile">
+								<label class="custom-file-label" for="productFile" id="productFileName">Choose
+									file</label>
+							</div>
+							<a th:href="@{/sample/product.tsv}" target="_blank">Download Sample</a>
+							<br>
+							Rows: <span id="rowCount">0</span>,
+							Processed: <span id="processCount">0</span>,
+							Errors: <span id="errorCount">0</span>
+						</div>
+
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal"
+								id="cancel6">Cancel</button>
+							<button type="button" class="btn btn-primary" id="process-data">Upload</button>
+							<button type="button" class="btn btn-secondary" id="download-errors">Download
+								Errors</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div> <!-- Container end-->
+	</main>
+	<footer th:replace="snippets.html :: name_footer"></footer>
+
+	<script th:src="@{/static/product.js}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!doctype html>
+
+<html lang="en">
+
+<head th:replace="snippets.html :: name_head"></head>
+
+<body>
+	<header th:replace="snippets.html :: name_site_navbar"></header>
+
+	<main class="container login-signup-form">
+		<!-- Blank Row -->
+		<div class="row">
+			&nbsp;
+		</div>
+		<!-- Blank Row -->
+		<div class="row">
+			&nbsp;
+		</div>
+		<div class="card col-4 mb-5 shadow">
+			<div class="card-header">
+				Login
+			</div>
+			<div class="card-body">
+				<form class="form" id="login-form" method="POST" th:action="@{/session/login}">
+					<div class="form-outline mb-4">
+						<input type="email" id="forEmail" class="form-control" name="email" required data-error="Please eneter the email address">
+						<label class="form-label" for="forEmail">Email address</label>
+					</div>
+					<div class="form-outline mb-4">
+						<input type="password" id="forPassword" class="form-control" name="password" required data-error="Please enter the password">
+						<label class="form-label" for="forPassword">Password</label>
+					</div>
+					<button type="submit" class="btn btn-primary btn-block mb-4" id="login">Login</button>
+					<div class="text-center">
+						<p>Not a member? <a th:href="@{/site/signup}">Register</a></p>
+					</div>
+				</form>
+			</div>
+		</div>
+	</main>
+	<footer th:replace="snippets.html :: name_footer"></footer>
+	<script th:src="@{/static/login.js}"></script>
+</body>
+
+</html>
